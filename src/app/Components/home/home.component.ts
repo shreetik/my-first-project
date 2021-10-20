@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StudentServiceService } from 'src/app/service/student-service.service';
 
 @Component({
   selector: 'home',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private studentService:StudentServiceService) { }
   
   public student={
     name: '',
@@ -19,10 +20,17 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
   
-
-  
   formSub(){
-    alert("finally")
+    this.studentService.addStudent(this.student).subscribe(
+      (data)=>{
+        console.log("data submited");
+        console.log(data);
+      },
+      (error)=>{
+        alert("error");
+        console.log(error)
+      }
+      )
   }
   
 
